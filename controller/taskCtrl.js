@@ -1,10 +1,11 @@
 const { transport,mailOptions } = require("../mail-service/mail");
-const Task=require("../models/taskModel")
+const Task=require("../models/taskModel") 
 const User=require("../models/userModel");
 const {v4} =require('uuid');
 const CreateTask= async (req, res) => {
     const emailId = req.body.email;
     const payload=req.body;
+    console.log(payload);
    try{
     const findUser = await User.findOne({ email: emailId });
     if (findUser) {
@@ -96,7 +97,7 @@ const CreateTask= async (req, res) => {
       const findTask=await Task.findById(payload._id);
       if(findTask){
               findTask.trash=!findTask.trash;
-              const updated=await Task.findByIdAndUpdate(findTask._id,findTask)
+              const updated=await Task.findByIdAndUpdate(findTask._id,findTask) 
               res.json(updated).send({notify:"deleted successfully"});
       }else
       {
@@ -106,10 +107,12 @@ const CreateTask= async (req, res) => {
   const UpdateTask=async (req, res)=>{
     const payload=req.body;
     const Findedtask=await Task.findById(payload._id);
+    console.log(payload)
+
     Findedtask.task=payload.task; 
    if(Findedtask){
     const updated=await Task.updateOne(
-        {_id:Findedtask._id},
+        {_id:Findedtask._id}, 
         {$set:{task:payload.task}}
     );
     if (updated){

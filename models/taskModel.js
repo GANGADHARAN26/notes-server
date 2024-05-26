@@ -19,6 +19,9 @@ const taskSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    status:{
+      type: String,
+    },
     remainder: {
       type: String, 
     },
